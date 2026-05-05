@@ -95,7 +95,7 @@ app.get('/validate', (req, res) => {
   }
 });
 
-// ── GET /profile  (protected via NGINX auth_request) ─────────────────────────
+// ── GET /profile  (protected via NGINX access_by_lua) ────────────────────────
 app.get('/profile', (req, res) => {
   const login = req.headers['x-user-login'] || 'unknown';
   const name  = req.headers['x-user-name']  || 'Unknown';
@@ -105,7 +105,7 @@ app.get('/profile', (req, res) => {
   res.send(profilePage(login, name, role));
 });
 
-// ── GET /server  (protected via NGINX auth_request) ──────────────────────────
+// ── GET /server  (protected via NGINX access_by_lua) ─────────────────────────
 app.get('/server', (req, res) => {
   const login = req.headers['x-user-login'] || 'unknown';
 
@@ -297,7 +297,7 @@ async function doLogin() {
     const data = await res.json();
 
     if (!res.ok) {
-      errEl.textContent = data.error || 'Authentication error';
+      errEl.textContent = data.error || 'Authentication failed';
       return;
     }
 
@@ -355,7 +355,7 @@ function profilePage(login, name, role) {
   <div class="section">
     <h2>Security</h2>
     <div class="info-row">
-      <span class="lbl">Token Algorithm</span>
+      <span class="lbl">Token algorithm</span>
       <span class="val">HS256 / JWT</span>
     </div>
     <div class="info-row">
@@ -364,7 +364,7 @@ function profilePage(login, name, role) {
     </div>
     <div class="info-row">
       <span class="lbl">Validation</span>
-      <span class="val">NGINX auth_request</span>
+      <span class="val">NGINX + LuaJIT FFI</span>
     </div>
   </div>
 </div>
@@ -404,7 +404,7 @@ function serverPage(login, info) {
       <span class="val">${esc(info.uptime)}</span>
     </div>
     <div class="info-row">
-      <span class="lbl">Host</span>
+      <span class="lbl">Hostname</span>
       <span class="val">${esc(info.hostname)}</span>
     </div>
   </div>
@@ -426,7 +426,7 @@ function serverPage(login, info) {
   </div>
   <hr class="divider">
   <div class="section">
-    <h2>Request From</h2>
+    <h2>Authenticated as</h2>
     <div class="info-row">
       <span class="lbl">Login</span>
       <span class="val">${esc(login)}</span>

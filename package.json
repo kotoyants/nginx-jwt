@@ -1,9 +1,11 @@
 {
-  "name": "jwt-auth-teststand",
+  "name": "jwt-auth-test-stand",
   "version": "1.0.0",
-  "private": true,
-  "engines": {
-    "node": ">=22"
+  "description": "JWT authentication test stand with NGINX + LuaJIT validation",
+  "main": "src/index.js",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node src/index.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",

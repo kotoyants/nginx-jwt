@@ -7,8 +7,6 @@ RUN npm install --omit=dev && npm cache clean --force
 
 COPY src/ ./src/
 
-EXPOSE 3000
-
 USER node
-
+EXPOSE 3000
 CMD ["node", "src/index.js"]
