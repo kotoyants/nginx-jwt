@@ -1,0 +1,13 @@
+{
+  "name": "jwt-auth-teststand",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
